@@ -93,7 +93,7 @@ var GLPIPlanning  = {
             theme:       true,
             weekNumbers: options.full_view ? true : false,
             timeFormat:  'H:mm',
-            eventLimit:  true, // show 'more' button when too mmany events
+            eventLimit:  true, // show 'more' button when too many events
             minTime:     CFG_GLPI.planning_begin,
             maxTime:     CFG_GLPI.planning_end,
             schedulerLicenseKey: "GPL-My-Project-Is-Open-Source",
@@ -106,7 +106,6 @@ var GLPIPlanning  = {
             header: options.header,
             hiddenDays: hidden_days,
             locale: loadedLocales.length === 1 ? loadedLocales[0] : undefined,
-            //resources: options.resources,
             resources: function(fetchInfo, successCallback) {
             // Filter resources by whether their id is in visible_res.
                 var filteredResources = [];
@@ -173,8 +172,15 @@ var GLPIPlanning  = {
                 // append event data to dom (to re-use they in clone behavior)
                 element.data('myevent', event);
 
-                var eventtype_marker = `<span class="event_type" style="background-color: ${extProps.typeColor}"></span>`;
-                element.append(eventtype_marker);
+                //var eventtype_marker = `<span class="event_type" style="background-color: ${extProps.typeColor}"></span>`;
+                var eventtype_marker = $('<span>', {
+                    class: 'event_type',
+                    style: {
+                        backgroundColor: extProps.typeColor
+                    }
+                });
+                
+                element.append(eventtype_marker.prop('outerHTML'));
 
                 var content = extProps.content;
                 var tooltip = extProps.tooltip;
